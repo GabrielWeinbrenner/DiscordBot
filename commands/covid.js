@@ -57,7 +57,6 @@ module.exports = {
                     timestamp: new Date(),
                 }
                 msg.channel.send({ embed: covidWorldEmbed })
-
             })
         })
 
