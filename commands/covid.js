@@ -36,9 +36,7 @@ module.exports = {
                 }],
                 timestamp: new Date(),
             }
-
             msg.channel.send({ embed:covidNJEmbed })
-
             fetch("https://corona.lmao.ninja/all")
             .then(data=>data.json())
             .then(data=>{
