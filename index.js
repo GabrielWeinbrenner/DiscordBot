@@ -25,7 +25,8 @@ bot.on('message', msg => {
     console.info(`Called command: ${command}`);
     var c = command.split(" ");
     if (c[0] == "kick") {
-      if(!msg.mentions) { msg.channel.send("Enter a username"); return;}
+      console.log(msg.mentions.users.first().avatarURL);
+      if(msg.mentions.users.first() == undefined) { msg.channel.send("Enter an @"); return;}
       var count = 4;
       var interval = setInterval(() => {
         count--;
