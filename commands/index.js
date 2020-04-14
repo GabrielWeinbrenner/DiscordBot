@@ -1,4 +1,5 @@
 module.exports = {
     Ping: require('./ping'),
-    Covid: require('./covid')
+    Covid: require('./covid'),
+    Inspiration: require('./inspiration')
 };
