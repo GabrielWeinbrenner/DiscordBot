@@ -1,6 +1,7 @@
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
+const fetch = require('node-fetch');
 
 module.exports = {
     name: "get me inspired",
