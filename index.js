@@ -17,7 +17,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-  if(msg.content.split(" ")[0] == ("kimmary")){
+  if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
     const args = msg.content.split(/ +/);
     const command = args.slice(1).join(" ").toLowerCase();
     console.info(`Called command: ${command}`);

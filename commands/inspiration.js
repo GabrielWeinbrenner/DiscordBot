@@ -12,7 +12,21 @@ module.exports = {
             return response.json();
         })
         .then(function (data) {
-            msg.channel.send(data[getRandomInt(data.length)].text);
+            const inspiration = {
+                title: "Kimmary Quotes",
+                color: 3973927,
+                image: {
+                    url: "https://picsum.photos/500/200/?random"
+                },
+                fields: [
+                    {
+                        name: ":thinking:",
+                        value: data[getRandomInt(data.length)].text
+                    }
+                ],
+                timestamp: new Date(),
+            }
+            msg.channel.send({embed: inspiration});
         });
     },
 }
