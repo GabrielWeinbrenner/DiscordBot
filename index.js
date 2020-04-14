@@ -25,7 +25,7 @@ bot.on('message', msg => {
     console.info(`Called command: ${command}`);
     var c = command.split(" ");
     if (c[0] == "kick") {
-      var count = 6;
+      var count = 4;
       var interval = setInterval(() => {
         count--;
         msg.channel.send(count);
