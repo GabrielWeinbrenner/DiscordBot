@@ -12,7 +12,7 @@ module.exports = {
             return response.json();
         })
         .then(function (data) {
-            msg.channel.send(data[getRandomInt(data.length)]);
+            msg.channel.send(data[getRandomInt(data.length)].text);
         });
     },
 }
