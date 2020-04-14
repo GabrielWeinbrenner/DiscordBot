@@ -25,6 +25,7 @@ bot.on('message', msg => {
     console.info(`Called command: ${command}`);
     var c = command.split(" ");
     if (c[0] == "kick") {
+      if(!msg.mentions) { msg.channel.send("Enter a username"); return;}
       var count = 4;
       var interval = setInterval(() => {
         count--;
