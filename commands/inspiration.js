@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 module.exports = {
     name: "get me inspired",
     description: "Get some inspiration",
@@ -7,7 +11,7 @@ module.exports = {
             return response.json();
         })
         .then(function (data) {
-            msg.channel.send(data[Math.random() * data.length]);
+            msg.channel.send(data[getRandomInt(data.length)]);
         });
     },
 }
