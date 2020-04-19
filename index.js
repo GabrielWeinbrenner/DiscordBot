@@ -62,6 +62,28 @@ bot.on('messageUpdate', (oldMessage,newMessage) => {
      ${newMessage.content}
   `)
 })
+bot.on('guildMemberUpdate', (oldMember, newMember) => {
+  if(!(oldMember.nickname == newMember.nickname)){
+    actionlog.send(
+      `**${oldMember.displayName}'s**
+     nickname has been changed to 
+     ${newMember.nickname}
+  `)
+  }
+})
+
+bot.on('channelCreate', (channel) => {
+  actionlog.send(
+    `**${channel.name}**
+     has been created
+  `)
+})
+bot.on('channelDelete', (channel) => {
+  actionlog.send(
+    `**${channel.name}**
+     has been deleted
+  `)
+})
 bot.on('')
 /* --------- */
 bot.once('reconnecting', () => {
