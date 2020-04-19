@@ -2,7 +2,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const Client = require('./client/Client');
 const bot = new Client();
-
+var actionlog;
 bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
 
@@ -14,6 +14,38 @@ Object.keys(botCommands).map(key => {
 const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
+bot.once('reconnecting', () => {
+  console.log('Reconnecting!');
+});
+
+bot.once('disconnect', () => {
+  console.log('Disconnect!');
+});
+
+bot.on('ready', () => {
+  console.info(`Logged in as ${bot.user.tag}!`);
+  actionlog = bot.channels.cache.find(
+    ch => ch.name == 'actionlogg'
+  );
+});
+
+bot.on('message', msg => {
+  if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
+    const args = msg.content.split(/ +/);
+    const command = args.slice(1).join(" ").toLowerCase();
+    console.info(`Called command: ${command}`);
+
+    if (!bot.commands.has(command)) return;
+    try {
+      bot.commands.get(command).execute(msg, args);
+    } catch (error) {
+      console.error(error);
+      msg.reply('there was an error trying to execute that command!');
+    }
+  }
+});
+
+
 /* 
 ACTION LOG:
 When a member joins / leaves
@@ -26,9 +58,6 @@ channel created / deleted
 nickname change
 */
 /* --------- */
-const actionlog = bot.channels.find('actionlogg');
-console.log(actionlog);
-// channel.send(message)
 
 bot.on('guildMemberAdd', member => {
   actionlog.send('**' + member.user.username + "** has joined")
@@ -54,21 +83,17 @@ bot.on('roleUpdate', (oldRole, newRole) => {
   actionlog.send('**' + oldRole.name + '**, has been updated');
 });
 bot.on('messageDelete', message => {
-  actionlog.send(`**${message.author}'s** messsage of ${message.content} has been deleted`)
+  actionlog.send(`**${message.author}'s** messsage of \`\`\`${message.content}\`\`\` has been deleted`)
 })
-bot.on('messageUpdate', (oldMessage,newMessage) => {
+bot.on('messageUpdate', (oldMessage, newMessage) => {
   actionlog.send(
-    `**${oldMessage.author}'s**
-     messsage of ${oldMessage.content} has been editted to 
-     ${newMessage.content}
+    `**${oldMessage.author}'s** messsage of \`\`\`${oldMessage.content}\`\`\` has been editted to ${newMessage.content}
   `)
 })
 bot.on('guildMemberUpdate', (oldMember, newMember) => {
-  if(!(oldMember.nickname == newMember.nickname)){
+  if (!(oldMember.nickname == newMember.nickname)) {
     actionlog.send(
-      `**${oldMember.displayName}'s**
-     nickname has been changed to 
-     ${newMember.nickname}
+      `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}
   `)
   }
 })
@@ -85,32 +110,4 @@ bot.on('channelDelete', (channel) => {
      has been deleted
   `)
 })
-bot.on('')
 /* --------- */
-bot.once('reconnecting', () => {
-  console.log('Reconnecting!');
-});
-
-bot.once('disconnect', () => {
-  console.log('Disconnect!');
-});
-
-bot.on('ready', () => {
-  console.info(`Logged in as ${bot.user.tag}!`);
-});
-
-bot.on('message', msg => {
-  if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
-    const args = msg.content.split(/ +/);
-    const command = args.slice(1).join(" ").toLowerCase();
-    console.info(`Called command: ${command}`);
-
-    if (!bot.commands.has(command)) return;
-    try {
-      bot.commands.get(command).execute(msg, args);
-    } catch (error) {
-      console.error(error);
-      msg.reply('there was an error trying to execute that command!');
-    }
-  }
-});
