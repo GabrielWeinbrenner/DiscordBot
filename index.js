@@ -26,7 +26,7 @@ channel created / deleted
 nickname change
 */
 /* --------- */
-const actionlog = client.channels.find('ActionLog', channelName)
+const actionlog = client.channels.find('actionlogg', channelName)
 // channel.send(message)
 
 bot.on('guildMemberAdd', member => {
@@ -41,20 +41,28 @@ bot.on('guildBanAdd', member => {
 bot.on('guildBanRemove', member => {
   actionlog.send('**' + member.user.username + '**, has been unbanned');
 });
-bot.on('guildMemberRemove', member => {
-  actionlog.send('**' + member.user.username + '**, has left the server');
-});
 bot.on('roleCreate', role => {
   actionlog.send('**' + role.name + '**, has been created');
 });
 bot.on('roleDelete', role => {
   actionlog.send('**' + role.name + '**, has been deleted');
 });
-bot.on('roleUpdate', oldRole, newRole => {
+bot.on('roleUpdate', (oldRole, newRole) => {
   console.log(oldRole);
   console.log(newRole);
   actionlog.send('**' + oldRole.name + '**, has been updated');
 });
+bot.on('messageDelete', message => {
+  actionlog.send(`**${message.author}'s** messsage of ${message.content} has been deleted`)
+})
+bot.on('messageUpdate', (oldMessage,newMessage) => {
+  actionlog.send(
+    `**${oldMessage.author}'s**
+     messsage of ${oldMessage.content} has been editted to 
+     ${newMessage.content}
+  `)
+})
+bot.on('')
 /* --------- */
 bot.once('reconnecting', () => {
   console.log('Reconnecting!');
@@ -81,6 +89,5 @@ bot.on('message', msg => {
       console.error(error);
       msg.reply('there was an error trying to execute that command!');
     }
-
   }
 });
