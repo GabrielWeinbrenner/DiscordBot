@@ -2,7 +2,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 module.exports = {
-    name: "kick",
+    name: "voicekick",
     description: "Kick user in the voice channel",
     execute(msg){
         if(msg.mentions.users.first() == undefined) { msg.channel.send("Enter an @"); return;}
