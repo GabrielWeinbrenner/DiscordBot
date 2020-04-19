@@ -14,7 +14,48 @@ Object.keys(botCommands).map(key => {
 const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
+/* 
+ACTION LOG:
+When a member joins / leaves
+ban/unban
+role created / given / removed / deleted / updated
+message that was edited / deleted
+bulk message deletion
+moderator command used
+channel created / deleted
+nickname change
+*/
+/* --------- */
+const actionlog = client.channels.find('ActionLog', channelName)
+// channel.send(message)
 
+bot.on('guildMemberAdd', member => {
+  actionlog.send('**' + member.user.username + "** has joined")
+})
+bot.on('guildMemberRemove', member => {
+  actionlog.send('**' + member.user.username + '**, has left the server');
+});
+bot.on('guildBanAdd', member => {
+  actionlog.send('**' + member.user.username + '**, has been banned');
+});
+bot.on('guildBanRemove', member => {
+  actionlog.send('**' + member.user.username + '**, has been unbanned');
+});
+bot.on('guildMemberRemove', member => {
+  actionlog.send('**' + member.user.username + '**, has left the server');
+});
+bot.on('roleCreate', role => {
+  actionlog.send('**' + role.name + '**, has been created');
+});
+bot.on('roleDelete', role => {
+  actionlog.send('**' + role.name + '**, has been deleted');
+});
+bot.on('roleUpdate', oldRole, newRole => {
+  console.log(oldRole);
+  console.log(newRole);
+  actionlog.send('**' + oldRole.name + '**, has been updated');
+});
+/* --------- */
 bot.once('reconnecting', () => {
   console.log('Reconnecting!');
 });
