@@ -26,7 +26,8 @@ channel created / deleted
 nickname change
 */
 /* --------- */
-const actionlog = bot.channels.find('actionlogg', channelName)
+const actionlog = bot.channels.find('actionlogg');
+console.log(actionlog);
 // channel.send(message)
 
 bot.on('guildMemberAdd', member => {
