@@ -76,22 +76,22 @@ nickname change
 /* --------- */
 try{
   bot.on('guildMemberAdd', member => {
-    let text = '**' + member.user.username + "** has joined";
+    let text = '**' + member.user + "** has joined";
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL() )})
     member.addRole()
   })
   bot.on('guildMemberRemove', member => {
-    let text = '**' + member.user.username + '**, has left the server';
+    let text = '**' + member.user + '**, has left the server';
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
 
   });
   bot.on('guildBanAdd', member => {
-    let text = '**' + member.user.username + '**, has been banned';
+    let text = '**' + member.user + '**, has been banned';
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
 
   });
   bot.on('guildBanRemove', member => {
-    let text = '**' + member.user.username + '**, has been unbanned';
+    let text = '**' + member.user + '**, has been unbanned';
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL()) })
 
   });
@@ -111,8 +111,8 @@ try{
   //   let text = '**' + oldRole.name + '**, has been updated';
   // });
   bot.on('messageDelete', message => {
-    let text = `@${message.member.user.tag}'s messsage has been deleted in #${message.channel.name}`;
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.member.user.tag, message.author.displayAvatarURL()) })
+    let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
+    actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
   })
   // bot.on('messageUpdate', (oldMessage, newMessage) => {
   //   if (oldMessage.content == "``````") {return;}
@@ -127,12 +127,12 @@ try{
   })
 
   bot.on('channelCreate', (channel) => {
-    let text = `**${channel.name}**has been created`;
+    let text = `**${channel} has been created}**`;
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
 
   })
   bot.on('channelDelete', (channel) => {
-    let text = `**${channel.name}** has been deleted`;
+    let text = `**${channel} has been deleted**`;
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.iconURL()) })
 
   })
