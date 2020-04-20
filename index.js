@@ -28,6 +28,14 @@ bot.on('ready', () => {
   actionlog = bot.channels.cache.find(
     ch => ch.name == 'actionlogg'
   );
+  bot.user.setPresence({
+    game: {
+      name: 'kimmary help',
+      type: "STREAMING",
+      url: ""
+    }
+  });
+  } 
 });
 
 bot.on('message', msg => {
