@@ -29,13 +29,8 @@ bot.on('ready', () => {
     ch => ch.name == 'actionlogg'
   );
   bot.user.setPresence({
-    game: {
-      name: 'kimmary help',
-      type: "STREAMING",
-      url: ""
-    }
+    activity:{name:'with kimmary help'}
   });
- 
 });
 
 bot.on('message', msg => {
