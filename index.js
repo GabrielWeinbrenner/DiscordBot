@@ -6,6 +6,7 @@ var actionlog;
 bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
 const xp = require('./levels');
+const embed = require('./static/embeds');
 
 Object.keys(botCommands).map(key => {
   bot.commands.set(botCommands[key].name, botCommands[key]);
@@ -61,20 +62,31 @@ moderator command used
 channel created / deleted
 nickname change
 */
+// sendEmbed = (color, text, subtext, authorName, authorImage)
+// GREEN = 417505
+// RED = 8388624
+// PURPLE = 6164643
 /* --------- */
 
 bot.on('guildMemberAdd', member => {
-  actionlog.send('**' + member.user.username + "** has joined")
+  const text = '**' + member.user.username + "** has joined";
+  actionlog.send({ embed: embed.sendEmbed(417505, text, "", member.user.username, member.user.displayAvatarURL )})
   member.addRole()
 })
 bot.on('guildMemberRemove', member => {
-  actionlog.send('**' + member.user.username + '**, has left the server');
+  const text = '**' + member.user.username + '**, has left the server';
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL) })
+
 });
 bot.on('guildBanAdd', member => {
-  actionlog.send('**' + member.user.username + '**, has been banned');
+  const text = '**' + member.user.username + '**, has been banned';
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL) })
+
 });
 bot.on('guildBanRemove', member => {
-  actionlog.send('**' + member.user.username + '**, has been unbanned');
+  const text = '**' + member.user.username + '**, has been unbanned';
+  actionlog.send({ embed: embed.sendEmbed(417505, text, "", member.user.username, member.user.displayAvatarURL) })
+
 });
 bot.on('roleCreate', role => {
   actionlog.send('**' + role.name + '**, has been created');
@@ -88,7 +100,9 @@ bot.on('roleUpdate', (oldRole, newRole) => {
   actionlog.send('**' + oldRole.name + '**, has been updated');
 });
 bot.on('messageDelete', message => {
-  actionlog.send(`**${message.author}'s** messsage of \`\`\`${message.content}\`\`\` has been deleted`)
+  const text = `**${message.author}'s** messsage has been deleted`;
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL) })
+
 })
 bot.on('messageUpdate', (oldMessage, newMessage) => {
   if (oldMesssage.content === "``````") {return;}
@@ -105,15 +119,14 @@ bot.on('guildMemberUpdate', (oldMember, newMember) => {
 })
 
 bot.on('channelCreate', (channel) => {
-  actionlog.send(
-    `**${channel.name}**
-     has been created
-  `)
+  const text = `**${channel.name}**has been created`;
+  actionlog.send({ embed: embed.sendEmbed(417505, text, "", channel.guild.name, channel.guild.icon) })
+
 })
 bot.on('channelDelete', (channel) => {
-  actionlog.send(
-    `**${channel.name}**
-     has been deleted
-  `)
+  const text = `**${channel.name}** has been deleted`;
+  const text = `**${channel.name}**has been created`;
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.icon) })
+
 })
 /* --------- */
