@@ -69,22 +69,22 @@ nickname change
 /* --------- */
 
 bot.on('guildMemberAdd', member => {
-  const text = '**' + member.user.username + "** has joined";
+  let text = '**' + member.user.username + "** has joined";
   actionlog.send({ embed: embed.sendEmbed(417505, text, "", member.user.username, member.user.displayAvatarURL )})
   member.addRole()
 })
 bot.on('guildMemberRemove', member => {
-  const text = '**' + member.user.username + '**, has left the server';
+  let text = '**' + member.user.username + '**, has left the server';
   actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL) })
 
 });
 bot.on('guildBanAdd', member => {
-  const text = '**' + member.user.username + '**, has been banned';
+  let text = '**' + member.user.username + '**, has been banned';
   actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL) })
 
 });
 bot.on('guildBanRemove', member => {
-  const text = '**' + member.user.username + '**, has been unbanned';
+  let text = '**' + member.user.username + '**, has been unbanned';
   actionlog.send({ embed: embed.sendEmbed(417505, text, "", member.user.username, member.user.displayAvatarURL) })
 
 });
@@ -100,7 +100,7 @@ bot.on('roleUpdate', (oldRole, newRole) => {
   actionlog.send('**' + oldRole.name + '**, has been updated');
 });
 bot.on('messageDelete', message => {
-  const text = `**${message.author}'s** messsage has been deleted`;
+  let text = `**${message.author}'s** messsage has been deleted`;
   actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL) })
 
 })
@@ -112,20 +112,17 @@ bot.on('messageUpdate', (oldMessage, newMessage) => {
 })
 bot.on('guildMemberUpdate', (oldMember, newMember) => {
   if (!(oldMember.nickname == newMember.nickname)) {
-    actionlog.send(
-      `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}
-  `)
+    actionlog.send(`**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}`)
   }
 })
 
 bot.on('channelCreate', (channel) => {
-  const text = `**${channel.name}**has been created`;
+  let text = `**${channel.name}**has been created`;
   actionlog.send({ embed: embed.sendEmbed(417505, text, "", channel.guild.name, channel.guild.icon) })
 
 })
 bot.on('channelDelete', (channel) => {
-  const text = `**${channel.name}** has been deleted`;
-  const text = `**${channel.name}**has been created`;
+  let text = `**${channel.name}** has been deleted`;
   actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.icon) })
 
 })
