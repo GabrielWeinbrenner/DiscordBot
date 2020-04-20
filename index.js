@@ -5,7 +5,7 @@ const bot = new Client();
 var actionlog;
 bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
-
+const xp = require('./levels');
 
 Object.keys(botCommands).map(key => {
   bot.commands.set(botCommands[key].name, botCommands[key]);
@@ -30,6 +30,9 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
+  if(xp.addXP(msg.member.id,msg.guild.id) !== null){
+    msg.reply("You have leveled up");
+  }
   if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
     const args = msg.content.split(/ +/);
     const command = args.slice(1).join(" ").toLowerCase();
