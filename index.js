@@ -111,7 +111,7 @@ try{
   //   let text = '**' + oldRole.name + '**, has been updated';
   // });
   bot.on('messageDelete', message => {
-    let text = `@${message.member.user.tag}'s messsage has been deleted in ${message.channel.name}`;
+    let text = `@${message.member.user.tag}'s messsage has been deleted in #${message.channel.name}`;
     actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.member.user.tag, message.author.displayAvatarURL()) })
   })
   // bot.on('messageUpdate', (oldMessage, newMessage) => {
