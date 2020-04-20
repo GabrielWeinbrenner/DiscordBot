@@ -35,7 +35,7 @@ bot.on('ready', () => {
       url: ""
     }
   });
-  } 
+ 
 });
 
 bot.on('message', msg => {
