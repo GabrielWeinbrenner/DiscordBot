@@ -6,14 +6,17 @@ module.exports = {
         if(levels.guilds[guildId] == undefined){
             levels.guilds[guildId] = {};
         }
+
         if(levels.guilds[guildId][memberId] == undefined){
             levels.guilds[guildId][memberId] = {xp:0};
         }
+
         levels.guilds[guildId][memberId].xp = levels.guilds[guildId][memberId].xp+1;
+
         var data = JSON.stringify(levels);
         fs.writeFileSync(__dirname + '/xp.json', data, 'utf8', (err) => console.log("good"));
-        if(levels.guilds[guildId][memberId].xp == 10){
-            return "Level UP";
+        if(levels.guilds[guildId][memberId].xp % 10 === 0){
+            return levels.guilds[guildId][memberId].xp /10
         }
         return null;
     }

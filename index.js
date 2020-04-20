@@ -30,8 +30,9 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-  if(xp.addXP(msg.member.id,msg.guild.id) !== null){
-    msg.reply("You have leveled up");
+  var levels = xp.addXP(msg.member.id, msg.guild.id);
+  if(levels !== null){
+    msg.reply("You have leveled up to level "+levels);
   }
   if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
     const args = msg.content.split(/ +/);
