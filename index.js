@@ -61,6 +61,7 @@ nickname change
 
 bot.on('guildMemberAdd', member => {
   actionlog.send('**' + member.user.username + "** has joined")
+  member.addRole()
 })
 bot.on('guildMemberRemove', member => {
   actionlog.send('**' + member.user.username + '**, has left the server');
@@ -86,6 +87,7 @@ bot.on('messageDelete', message => {
   actionlog.send(`**${message.author}'s** messsage of \`\`\`${message.content}\`\`\` has been deleted`)
 })
 bot.on('messageUpdate', (oldMessage, newMessage) => {
+  if (oldMesssage.content === "``````") {return;}
   actionlog.send(
     `**${oldMessage.author}'s** messsage of \`\`\`${oldMessage.content}\`\`\` has been editted to ${newMessage.content}
   `)

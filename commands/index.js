@@ -3,5 +3,6 @@ module.exports = {
     Covid: require('./covid'),
     Inspiration: require('./inspiration'),
     Kick: require('./kick'),
-    Play: require('./play')
+    Play: require('./play'),
+    Help: require('./help')
 };
