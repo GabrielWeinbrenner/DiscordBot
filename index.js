@@ -130,9 +130,10 @@ try{
   })
 
   bot.on('channelCreate', (channel) => {
-    let text = `**${channel} has been created}**`;
-    actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
-
+    if(channel.type !== dm){
+      let text = `**${channel} has been created}**`;
+      actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
+    }
   })
   bot.on('channelDelete', (channel) => {
     let text = `**${channel} has been deleted**`;
