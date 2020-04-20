@@ -1,9 +1,9 @@
 module.exports = {
-    sendEmbed = (color,text,subtext,authorName,authorImage) => {
+    sendEmbed : (color,text,subtext,authorName,authorImage) => {
         const embed = {
             title: text,
             description: subtext,
-            color: 4141561,
+            color: color,
             timestamp: "2020-04-20T00:02:35.825Z",
             author: {
                 name: authorName,
