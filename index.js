@@ -130,7 +130,7 @@ try{
   })
 
   bot.on('channelCreate', (channel) => {
-    if(channel.type !== dm){
+    if(channel.type !== "dm"){
       let text = `**${channel} has been created}**`;
       actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
     }
