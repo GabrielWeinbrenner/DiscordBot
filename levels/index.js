@@ -19,5 +19,18 @@ module.exports = {
             return levels.guilds[guildId][memberId].xp /10
         }
         return null;
+    },
+    getTopXP: (currentGuild) => {
+        var data = fs.readFileSync(__dirname + '/xp.json', 'utf8')
+        var levels = JSON.parse(data);
+        var topPeople = [];
+        for (x in levels.guilds[currentGuild]){
+            topPeople.push([x, levels.guilds[currentGuild][x].xp]);
+        }
+        topPeople.sort(function(a,b){
+            return b[1] - a[1];
+        })
+        topPeople.slice(0, 3)
+        return topPeople;
     }
 }

@@ -4,5 +4,6 @@ module.exports = {
     Inspiration: require('./inspiration'),
     Kick: require('./kick'),
     Play: require('./play'),
-    Help: require('./help')
+    Help: require('./help'),
+    Leaderboard: require('./leaderboard')
 };
