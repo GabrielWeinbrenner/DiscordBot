@@ -5,5 +5,6 @@ module.exports = {
     Kick: require('./kick'),
     Play: require('./play'),
     Help: require('./help'),
-    Leaderboard: require('./leaderboard')
+    Leaderboard: require('./leaderboard'),
+    Twitch: require('./twitch')
 };

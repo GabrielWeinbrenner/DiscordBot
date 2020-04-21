@@ -49,9 +49,12 @@ bot.on('message', msg => {
     const args = msg.content.split(/ +/);
     const command = args.slice(1).join(" ").toLowerCase();
     console.info(`Called command: ${command}`);
-
+    if (command.split(" ")[0] == "twitch") {
+      bot.commands.get("twitch").execute(msg, args);
+    }
     if (!bot.commands.has(command)) return;
     try {
+
       bot.commands.get(command).execute(msg, args);
     } catch (error) {
       console.error(error);
