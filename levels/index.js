@@ -15,8 +15,8 @@ module.exports = {
 
         var data = JSON.stringify(levels);
         fs.writeFileSync(__dirname + '/xp.json', data, 'utf8', (err) => console.log("good"));
-        if(levels.guilds[guildId][memberId].xp % 10 === 0){
-            return levels.guilds[guildId][memberId].xp /10
+        if(levels.guilds[guildId][memberId].xp % 100 === 0){
+            return levels.guilds[guildId][memberId].xp /100
         }
         return null;
     },
