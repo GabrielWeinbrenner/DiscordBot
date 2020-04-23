@@ -13,8 +13,8 @@ Object.keys(botCommands).map(key => {
 });
 
 const TOKEN = process.env.TOKEN;
-
 bot.login(TOKEN);
+
 bot.once('reconnecting', () => {
   console.log('Reconnecting!');
 });
