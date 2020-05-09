@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
+const Chart = require('node-chartjs')
+
 const client = new Discord.Client();
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -34,7 +36,7 @@ module.exports = {
                 },
                 {
                     name: "New Jersey Total Deaths \n",
-                    value: `Total Deatgs: **${numberWithCommas(data.deaths)}** (${numberWithCommas(data.todayDeaths)} increase)`,
+                    value: `Total Deaths: **${numberWithCommas(data.deaths)}** (${numberWithCommas(data.todayDeaths)} increase)`,
                     inline: true
                 },
                 {
@@ -47,6 +49,52 @@ module.exports = {
             fetch("https://corona.lmao.ninja/v2/all")
             .then(data=>data.json())
             .then(data=>{
+                fetch("https://corona.lmao.ninja/v2/historical/all")
+                    .then(data => {
+                        a = data.json()
+                        for (const i in a.cases) {
+                            b.push({ x: i, y: a.cases[i] });
+                        }
+                    })
+                    .then(data => {
+                        const casesConfig = {
+                            type: 'line',
+                            data: {
+                                datasets: [{
+                                    backgroundColor: 'transparent',
+                                    borderColor: 'red',
+                                    label: 'Deaths',
+                                    data: data,
+                                    fill: false,
+                                    pointRadius: 0,
+                                    cubicInterpolationMode: 'monotone',
+                                    borderCapStyle: 'round'
+                                }]
+                            },
+                            options: {
+                                layout: {
+                                    padding: 10,
+                                    lineHeight: 1
+                                },
+                                legend: {
+                                    display: false
+                                },
+                                linearGradientLine: true,
+                                scales: {
+                                    yAxes: [{
+                                        display: false,
+                                        ticks: {
+                                            display: false
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        display: false
+                                    }]
+                                }
+                            }
+                        }
+                    });
+
                 const covidWorldEmbed = {
                     color: 8388624,
                     title: ":world_map: Covid-19 Daily Updates in the World :world_map:",
