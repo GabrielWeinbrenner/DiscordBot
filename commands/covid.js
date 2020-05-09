@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
-const Chart = require('node-chartjs')
 
 const client = new Discord.Client();
 function numberWithCommas(x) {
@@ -11,15 +10,21 @@ module.exports = {
     description: 'Ping!',
     execute(msg, args) {
         var data;
-
+        var state = args.join(" ").substring(18);
+        if(state == undefined) state = "New Jersey";
         fetch("https://corona.lmao.ninja/v2/states")
         .then(
             d => d.json()
         )
         .then(d => {
             d.forEach(element => {
-                if (element.state == "New Jersey") {
+                if ((element.state).toLowerCase() == state) {
                     data = element;
+                    var deathIncrease;
+                    var casesIncrease;
+                    data.todayDeaths == 0 ? deathIncrease = "" : deathIncrease = `(${numberWithCommas(data.todayDeaths)} increase)`
+                    data.todayCases == 0 ? casesIncrease = "" : casesIncrease = `(${numberWithCommas(data.todayCases)} increase)`
+                    state = state.split(" ").map(item => item.substring(0, 1).toUpperCase() + item.substring(1)).join(" ");
                 }
             });
             const covidNJEmbed = { 
@@ -27,20 +32,20 @@ module.exports = {
                 thumbnail: {
                     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTBvT6_MyDPiXGBI-LTY2nZ5tQhScGUKpcQNp8FAoQgkyprorOe&usqp=CAU",
                 },
-                title: ":house: Covid-19 Daily Updates for NJ :house:",
-                description: "The total cases for NJ include",
+                title: `:house: Covid-19 Daily Updates for ${state} :house:`,
+                description: `The total cases for ${state} include`,
                 fields: [{
-                    name: "New Jersey Cases \n",
-                    value: `Total Cases: **${numberWithCommas(data.cases)}** (${numberWithCommas(data.todayCases)} increase)`,
+                    name: `${state} Cases \n`,
+                    value: `Total Cases: **${numberWithCommas(data.cases)}** ${casesIncrease}`,
                     inline: true
                 },
                 {
-                    name: "New Jersey Total Deaths \n",
-                    value: `Total Deaths: **${numberWithCommas(data.deaths)}** (${numberWithCommas(data.todayDeaths)} increase)`,
+                    name: `${state} Total Deaths \n`,
+                    value: `Total Deaths: **${numberWithCommas(data.deaths)}** ${deathsIncrease}`,
                     inline: true
                 },
                 {
-                    name: "New Jersey Total Tests \n" ,
+                    name: `${state} Total Tests \n` ,
                     value: `Total Test Results: **${numberWithCommas(data.tests)}**`
                 }],
                 timestamp: new Date(),

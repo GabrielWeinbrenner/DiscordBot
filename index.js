@@ -47,16 +47,15 @@ bot.on('message', msg => {
 
   if(msg.content.split(" ")[0].toLowerCase() == ("kimmary")){
     const args = msg.content.split(/ +/);
-    const command = args.slice(1).join(" ").toLowerCase();
+    const command = args.slice(1,3).join(" ").toLowerCase();
     console.info(`Called command: ${command}`);
     if (command.split(" ")[0] == "twitch") {
       bot.commands.get("twitch").execute(msg, args);
     }
     if (!bot.commands.has(command)) return;
     try {
-
       bot.commands.get(command).execute(msg, args);
-    } catch (error) {
+    } catch (error) { 
       console.error(error);
       msg.reply('there was an error trying to execute that command!');
     }
