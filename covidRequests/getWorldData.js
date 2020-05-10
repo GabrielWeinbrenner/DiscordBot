@@ -13,7 +13,12 @@ module.exports = {
             fetch("https://corona.lmao.ninja/v2/historical/" + country)
                 .then(data => data.json())
                 .then(a => {
-                    if (a.timeline != undefined) a = a.timeline;
+                    var title = "Worldwide";
+
+                    if (a.timeline != undefined) { 
+                        a = a.timeline; 
+                        title = `In ${country}`; 
+                    }
                     console.log(a);
                     var data = [];
                     for (let i in a.cases) {
@@ -22,8 +27,8 @@ module.exports = {
                     }
                     var lineGraph = {
                         "$schema": "https://vega.github.io/schema/vega/v5.json",
-                        "width": 700,
-                        "height": 300,
+                        "width": 900,
+                        "height": 800,
                         "padding": 5,
                         "signals": [
                             {
@@ -37,11 +42,17 @@ module.exports = {
                                 "values": data
                             }
                         ],
+                        "title": {
+                            "text": "Covid-19 " + title,
+                            "fontSize": 40,
+                            "subtitleColor": "#fff"
+                        },
+
                         "legends": [
                             {
                                 "fill": "color",
-                                "title": "Covid-19 Worldwide",
                                 "orient": "top-left",
+                                "labelFontSize": 25,
                                 "encode": {
                                     "symbols": { "enter": { "fillOpacity": { "value": 0.5 } } },
                                     "labels": { "update": { "text": { "field": "value" } } }
@@ -71,8 +82,22 @@ module.exports = {
                         ],
 
                         "axes": [
-                            { "orient": "bottom", "scale": "x" },
-                            { "orient": "left", "scale": "y" }
+                            { 
+                                "orient": "bottom", 
+                                "scale": "x",
+                                "labelFontSize": 14,
+                                "labelOverlap": true,
+                                "labelAngle": 50,
+                                "labelPadding": 15,
+                                "labelSeparation": 10,
+                                "align": "left"
+                            },
+                            { 
+                                "orient": "left", 
+                                "scale": "y",
+                                "labelFontSize": 15,
+                                "labelPadding": 10,
+                            }
                         ],
 
                         "marks": [
