@@ -2,16 +2,19 @@ var vega = require('vega')
 var fs = require('fs')
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 module.exports = {
-    getGraph: (country) => {
+    getGraph: (msg, country) => {
     fetch("https://corona.lmao.ninja/v2/all")
         .then(data => data.json())
         .then(total => {
             fetch("https://corona.lmao.ninja/v2/historical/" + country)
                 .then(data => data.json())
                 .then(a => {
-                    a = a.timeline;
+                    if (a.timeline != undefined) a = a.timeline;
+                    console.log(a);
                     var data = [];
                     for (let i in a.cases) {
                         let date = i.substring(0, i.length - 3);
@@ -121,7 +124,7 @@ module.exports = {
                         .then(function (canvas) {
                             console.log('Writing PNG to file...')
                             fs.writeFile('lineGraph.png', canvas.toBuffer(), () => "YUUHH");
-                            const exampleEmbed = new Discord.MessageEmbed()
+                            const covidEmbed = new Discord.MessageEmbed()
                                 .setTitle(":world_map: Covid-19 Daily Updates in the World :world_map:")
                                 .attachFiles(['./lineGraph.png'])
                                 .setColor(8388624)
@@ -130,7 +133,8 @@ module.exports = {
                                     `** (**${numberWithCommas(total.todayCases)}** increase)`)
                                 .addField("World Deaths", "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`)
                                 .setImage('attachment://lineGraph.png');
-                            return exampleEmbed;
+                            msg.channel.send(covidEmbed);
+
                         })
                         .catch(function (err) {
                             console.log("Error writing PNG to file:")
