@@ -16,11 +16,13 @@
     "dotenv": "^8.2.0",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
+    "jsdom": "^16.2.2",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "simple-youtube-api": "^5.2.1",
+    "vega": "^5.11.1",
     "ytdl-core": "^2.0.1"
   }
 }
