@@ -11,28 +11,27 @@ module.exports = {
     execute(msg, args) {
         var data;
         var state = args.join(" ").substring(18);
-        if(state == undefined) state = "New Jersey";
+        if(!state) state = "new jersey";
         fetch("https://corona.lmao.ninja/v2/states")
         .then(
             d => d.json()
         )
         .then(d => {
-            var deathIncrease;
+            var deathsIncrease;
             var casesIncrease;
             d.forEach(element => {
                 if ((element.state).toLowerCase() == state) {
                     data = element;
-
-                    data.todayDeaths == 0 ? deathIncrease = "" : deathIncrease = `(${numberWithCommas(data.todayDeaths)} increase)`
-                    data.todayCases == 0 ? casesIncrease = "" : casesIncrease = `(${numberWithCommas(data.todayCases)} increase)`
+                    data.todayDeaths == 0 ? deathsIncrease = "" : deathsIncrease = `(${numberWithCommas(data.todayDeaths)} increase)`;
+                    data.todayCases == 0 ? casesIncrease = "" : casesIncrease = `(${numberWithCommas(data.todayCases)} increase)`;
                     state = state.split(" ").map(item => item.substring(0, 1).toUpperCase() + item.substring(1)).join(" ");
                 }
             });
             const covidNJEmbed = { 
                 color: 8388624, 
-                thumbnail: {
-                    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTBvT6_MyDPiXGBI-LTY2nZ5tQhScGUKpcQNp8FAoQgkyprorOe&usqp=CAU",
-                },
+                // thumbnail: {
+                //     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTBvT6_MyDPiXGBI-LTY2nZ5tQhScGUKpcQNp8FAoQgkyprorOe&usqp=CAU",
+                // },
                 title: `:house: Covid-19 Daily Updates for ${state} :house:`,
                 description: `The total cases for ${state} include`,
                 fields: [{
