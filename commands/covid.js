@@ -64,124 +64,125 @@ module.exports = {
                     .then(a => {
                         var data = [];
                         for (let i in a.cases) {
-                            data.push({ x: i, y: a.cases[i], c: 0 });
+                            let date = i.substring(0, i.length-3);
+                            data.push({ x: date, y: a.cases[i], c: "Cases" }, { x: date, y: a.deaths[i], c: "Deaths" }, { x: date, y: a.recovered[i], c: "Recovered" });
                         }
                         var lineGraph = {
                             "$schema": "https://vega.github.io/schema/vega/v5.json",
-                                "description": "A basic line chart example.",
-                                    "width": 700,
-                                        "height": 200,
-                                            "padding": 5,
-                                                "signals": [
-                                                    {
-                                                        "name": "interpolate",
-                                                        "value": "linear"
-                                                    }
-                                                ],
+                            "description": "A basic line chart example.",
+                            "width": 500,
+                            "height": 200,
+                            "padding": 5,
+                            "signals": [
+                                {
+                                    "name": "interpolate",
+                                    "value": "monotone"
+                                }
+                            ],
+                            "data": [
+                                {
+                                    "name": "table",
+                                    "values": data
+                                }
+                            ],
+                            "legends": [
+                                {
+                                    "fill": "color",
+                                    "title": "Covid-19 Worldwide",
+                                    "orient": "top-left",
+                                    "encode": {
+                                        "symbols": { "enter": { "fillOpacity": { "value": 0.5 } } },
+                                        "labels": { "update": { "text": { "field": "value" } } }
+                                    }
+                                }
+                            ],
+                            "scales": [
+                                {
+                                    "name": "x",
+                                    "type": "point",
+                                    "range": "width",
+                                    "domain": { "data": "table", "field": "x" }
+                                },
+                                {
+                                    "name": "y",
+                                    "type": "linear",
+                                    "range": "height",
+                                    "nice": true,
+                                    "zero": true,
+                                    "domain": { "data": "table", "field": "y" }
+                                },
+                                {
+                                    "name": "color",
+                                    "type": "ordinal",
+                                    "range": "category",
+                                    "domain": { "data": "table", "field": "c" }
+                                }
+                            ],
 
-                                                    "data": [
-                                                        {
-                                                            "name": "table",
-                                                            "values": data
-                                                        }
-                                                    ],
+                            "axes": [
+                                { "orient": "bottom", "scale": "x" },
+                                { "orient": "left", "scale": "y" }
+                            ],
 
-                                                        "scales": [
-                                                            {
-                                                                "name": "x",
-                                                                "type": "point",
-                                                                "range": "width",
-                                                                "domain": { "data": "table", "field": "x" }
-                                                            },
-                                                            {
-                                                                "name": "y",
-                                                                "type": "linear",
-                                                                "range": "height",
-                                                                "nice": true,
-                                                                "zero": true,
-                                                                "domain": { "data": "table", "field": "y" }
-                                                            },
-                                                            {
-                                                                "name": "color",
-                                                                "type": "ordinal",
-                                                                "range": "category",
-                                                                "domain": { "data": "table", "field": "c" }
-                                                            }
-                                                        ],
-
-                                                            "axes": [
-                                                                { "orient": "bottom", "scale": "x" },
-                                                                { "orient": "left", "scale": "y" }
-                                                            ],
-
-                                                                "marks": [
-                                                                    {
-                                                                        "type": "group",
-                                                                        "from": {
-                                                                            "facet": {
-                                                                                "name": "series",
-                                                                                "data": "table",
-                                                                                "groupby": "c"
-                                                                            }
-                                                                        },
-                                                                        "marks": [
-                                                                            {
-                                                                                "type": "line",
-                                                                                "from": { "data": "series" },
-                                                                                "encode": {
-                                                                                    "enter": {
-                                                                                        "x": { "scale": "x", "field": "x" },
-                                                                                        "y": { "scale": "y", "field": "y" },
-                                                                                        "stroke": { "scale": "color", "field": "c" },
-                                                                                        "strokeWidth": { "value": 2 }
-                                                                                    },
-                                                                                    "update": {
-                                                                                        "interpolate": { "signal": "interpolate" },
-                                                                                        "strokeOpacity": { "value": 1 }
-                                                                                    },
-                                                                                    "hover": {
-                                                                                        "strokeOpacity": { "value": 0.5 }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        ]
-                                                                    }
-                                                                ]
+                            "marks": [
+                                {
+                                    "type": "group",
+                                    "from": {
+                                        "facet": {
+                                            "name": "series",
+                                            "data": "table",
+                                            "groupby": "c"
+                                        }
+                                    },
+                                    "marks": [
+                                        {
+                                            "type": "line",
+                                            "from": { "data": "series" },
+                                            "encode": {
+                                                "enter": {
+                                                    "x": { "scale": "x", "field": "x" },
+                                                    "y": { "scale": "y", "field": "y" },
+                                                    "stroke": { "scale": "color", "field": "c" },
+                                                    "strokeWidth": { "value": 2 }
+                                                },
+                                                "update": {
+                                                    "interpolate": { "signal": "interpolate" },
+                                                    "strokeOpacity": { "value": 1 }
+                                                },
+                                                "hover": {
+                                                    "strokeOpacity": { "value": 0.5 }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
                         }
+                        const config = {
+                            "background": "white",
+                            "group": {
+                                "fill": "#dedede"
+                            }
+                        };
                         var view = new vega
-                            .View(vega.parse(lineGraph))
+                            .View(vega.parse(lineGraph, config))
                             .renderer('none')
                             .initialize();
                         view
                             .toCanvas()
                             .then(function (canvas) {
-                                // process node-canvas instance for example, generate a PNG stream to write var
-                                // stream = canvas.createPNGStream();
                                 console.log('Writing PNG to file...')
                                 fs.writeFile('lineGraph.png', canvas.toBuffer(), () => "YUUHH");
-                                const file = new Discord.MessageAttachment('./lineGraph.png');
-                                const covidWorldEmbed = {
-                                    color: 8388624,
-                                    title: ":world_map: Covid-19 Daily Updates in the World :world_map:",
-                                    description: "Covid 19 statistics for the world",
-                                    thumbnail: {
-                                        url: "https://lh3.googleusercontent.com/proxy/A9YxWd6iZv4mqTHvri6tGEGD84oa0ZYzIwoI0zOLk1c2YeNVOsOuCHGTrH8BToCUKBVNyKLV4QwHKLuW9BtPMfpiLY8LVV-avVDPCYqGTmnPq2Z3va3S_c-fFgvzt2-CfPkmCOld6KuIp9bV8t_vXNOipgk"
-                                    },
-                                    image: {
-                                        url: "../linegraph.png"
-                                    },
-                                    fields: [{
-                                        name: "World Infections",
-                                        value: "Total Infected: **" + numberWithCommas(total.cases) +
-                                            `** (**${numberWithCommas(total.todayCases)}** increase)`,
-                                    },
-                                    {
-                                        name: "World Deaths",
-                                        value: "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`
-                                    }],
-                                    timestamp: new Date(),
-                                }
-                                msg.channel.send({files: [file], embed: covidWorldEmbed })
+                                const exampleEmbed = new Discord.MessageEmbed()
+                                    .setTitle(":world_map: Covid-19 Daily Updates in the World :world_map:")
+                                    .attachFiles(['./lineGraph.png'])
+                                    .setColor(8388624)
+                                    .setDescription("Covid 19 statistics for the world")
+                                    .addField("World Infections", "Total Infected: **" + numberWithCommas(total.cases) +
+                                        `** (**${numberWithCommas(total.todayCases)}** increase)`)
+                                    .addField("World Deaths", "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`)
+                                    .setImage('attachment://lineGraph.png');
+                                msg.channel.send(exampleEmbed )
 
                             })
                             .catch(function (err) {
