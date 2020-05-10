@@ -70,8 +70,8 @@ module.exports = {
                         var lineGraph = {
                             "$schema": "https://vega.github.io/schema/vega/v5.json",
                             "description": "A basic line chart example.",
-                            "width": 500,
-                            "height": 200,
+                            "width": 700,
+                            "height": 300,
                             "padding": 5,
                             "signals": [
                                 {
