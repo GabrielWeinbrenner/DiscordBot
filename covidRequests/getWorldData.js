@@ -110,10 +110,10 @@ module.exports = {
                         ]
                     }
                     const config = {
-                        "background": "white",
-                        "group": {
-                            "fill": "#dedede"
-                        }
+                        "background": "#333",
+                        "title": { "color": "#fff" },
+                        "style": { "guide-label": { "fill": "#fff" }, "guide-title": { "fill": "#fff" } },
+                        "axis": { "domainColor": "#fff", "gridColor": "#888", "tickColor": "#fff" }
                     };
                     var view = new vega
                         .View(vega.parse(lineGraph, config))
