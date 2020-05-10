@@ -17,11 +17,12 @@ module.exports = {
             d => d.json()
         )
         .then(d => {
+            var deathIncrease;
+            var casesIncrease;
             d.forEach(element => {
                 if ((element.state).toLowerCase() == state) {
                     data = element;
-                    var deathIncrease;
-                    var casesIncrease;
+
                     data.todayDeaths == 0 ? deathIncrease = "" : deathIncrease = `(${numberWithCommas(data.todayDeaths)} increase)`
                     data.todayCases == 0 ? casesIncrease = "" : casesIncrease = `(${numberWithCommas(data.todayCases)} increase)`
                     state = state.split(" ").map(item => item.substring(0, 1).toUpperCase() + item.substring(1)).join(" ");
