@@ -10,11 +10,11 @@ module.exports = {
         country = country.substring(0,1).toUpperCase() + country.substring(1);
         var urlHistorical;
         var urlStats;
-        var title = "The World";
 
         if(isWorld){
             urlHistorical = "https://corona.lmao.ninja/v2/historical/all";
             urlStats = "https://corona.lmao.ninja/v2/all";
+            country = "The World";
         }else{
             urlHistorical = "https://corona.lmao.ninja/v2/historical/"+country;
             urlStats = "https://corona.lmao.ninja/v2/countries/"+country;
@@ -51,7 +51,7 @@ module.exports = {
                             }
                         ],
                         "title": {
-                            "text": "Covid-19 in " + title,
+                            "text": "Covid-19 in " + country,
                             "fontSize": 40,
                             "subtitleColor": "#fff"
                         },
