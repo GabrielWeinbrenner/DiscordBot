@@ -148,6 +148,9 @@ module.exports = {
                         "style": { "guide-label": { "fill": "#fff" }, "guide-title": { "fill": "#fff" } },
                         "axis": { "domainColor": "#fff", "gridColor": "#888", "tickColor": "#fff" }
                     };
+                    var flag = `:flag_${total.countryInfo.iso2.toLowerCase()}:`;
+
+                    if (flag==undefined) flag = ":world_map:";
                     var view = new vega
                         .View(vega.parse(lineGraph, config))
                         .renderer('none')
@@ -158,14 +161,15 @@ module.exports = {
                         console.log('Writing PNG to file...')
                         fs.writeFile('lineGraph.png', canvas.toBuffer(), () => "YUUHH");
                         const covidEmbed = new Discord.MessageEmbed()
-                            .setTitle(`:world_map: Covid-19 Daily Updates in ${country} :world_map:`)
+                            .setTitle(`${flag} Covid-19 Daily Updates in ${country} ${flag}`)
                             .attachFiles(['./lineGraph.png'])
                             .setColor(8388624)
                             .setDescription(`Covid 19 statistics for ${country}`)
                             .addField(`${country} Infections`, "Total Infected: **" + numberWithCommas(total.cases) +
                                 `** (**${numberWithCommas(total.todayCases)}** increase)`)
                             .addField(`${country} Deaths`, "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`)
-                            .setImage('attachment://lineGraph.png');
+                            .setImage('attachment://lineGraph.png')
+                            .setTimestamp(new Date(total.updated))
                         msg.channel.send(covidEmbed);
 
                     })
