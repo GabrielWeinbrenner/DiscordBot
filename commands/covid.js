@@ -46,8 +46,10 @@ module.exports = {
                 timestamp: new Date(),
             }
             msg.channel.send({ embed:covidNJEmbed });
-            getWorldData.getGraph(msg, "all");
-        });
-
+            getWorldData.getGraph(msg, "all", true);
+        })
+        .catch(d => {
+            getWorldData.getGraph(msg, state, false);
+        })
     },
 };

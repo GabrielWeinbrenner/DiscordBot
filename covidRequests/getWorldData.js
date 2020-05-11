@@ -6,20 +6,28 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 module.exports = {
-    getGraph: (msg, country) => {
-    fetch("https://corona.lmao.ninja/v2/all")
+    getGraph: (msg, country, isWorld) => {
+        country = country.substring(0,1).toUpperCase() + country.substring(1);
+        var urlHistorical;
+        var urlStats;
+        var title = "The World";
+
+        if(isWorld){
+            urlHistorical = "https://corona.lmao.ninja/v2/historical/all";
+            urlStats = "https://corona.lmao.ninja/v2/all";
+        }else{
+            urlHistorical = "https://corona.lmao.ninja/v2/historical/"+country;
+            urlStats = "https://corona.lmao.ninja/v2/countries/"+country;
+        }
+        fetch(urlStats)
         .then(data => data.json())
         .then(total => {
-            fetch("https://corona.lmao.ninja/v2/historical/" + country)
+            fetch(urlHistorical)
                 .then(data => data.json())
                 .then(a => {
-                    var title = "Worldwide";
-
                     if (a.timeline != undefined) { 
                         a = a.timeline; 
-                        title = `In ${country}`; 
                     }
-                    console.log(a);
                     var data = [];
                     for (let i in a.cases) {
                         let date = i.substring(0, i.length - 3);
@@ -43,7 +51,7 @@ module.exports = {
                             }
                         ],
                         "title": {
-                            "text": "Covid-19 " + title,
+                            "text": "Covid-19 in " + title,
                             "fontSize": 40,
                             "subtitleColor": "#fff"
                         },
@@ -145,27 +153,27 @@ module.exports = {
                         .renderer('none')
                         .initialize();
                     view
-                        .toCanvas()
-                        .then(function (canvas) {
-                            console.log('Writing PNG to file...')
-                            fs.writeFile('lineGraph.png', canvas.toBuffer(), () => "YUUHH");
-                            const covidEmbed = new Discord.MessageEmbed()
-                                .setTitle(":world_map: Covid-19 Daily Updates in the World :world_map:")
-                                .attachFiles(['./lineGraph.png'])
-                                .setColor(8388624)
-                                .setDescription("Covid 19 statistics for the world")
-                                .addField("World Infections", "Total Infected: **" + numberWithCommas(total.cases) +
-                                    `** (**${numberWithCommas(total.todayCases)}** increase)`)
-                                .addField("World Deaths", "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`)
-                                .setImage('attachment://lineGraph.png');
-                            msg.channel.send(covidEmbed);
+                    .toCanvas()
+                    .then(function (canvas) {
+                        console.log('Writing PNG to file...')
+                        fs.writeFile('lineGraph.png', canvas.toBuffer(), () => "YUUHH");
+                        const covidEmbed = new Discord.MessageEmbed()
+                            .setTitle(`:world_map: Covid-19 Daily Updates in ${country} :world_map:`)
+                            .attachFiles(['./lineGraph.png'])
+                            .setColor(8388624)
+                            .setDescription(`Covid 19 statistics for ${country}`)
+                            .addField(`${country} Infections`, "Total Infected: **" + numberWithCommas(total.cases) +
+                                `** (**${numberWithCommas(total.todayCases)}** increase)`)
+                            .addField(`${country} Deaths`, "Total Deaths: **" + numberWithCommas(total.deaths) + `** (**${numberWithCommas(total.todayDeaths)}** increase)`)
+                            .setImage('attachment://lineGraph.png');
+                        msg.channel.send(covidEmbed);
 
-                        })
-                        .catch(function (err) {
-                            console.log("Error writing PNG to file:")
-                            console.error(err)
-                            return "error";
-                        });
+                    })
+                    .catch(function (err) {
+                        console.log("Error writing PNG to file:")
+                        console.error(err)
+                        return "error";
+                    });
 
                 });
 
