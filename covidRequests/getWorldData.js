@@ -148,9 +148,13 @@ module.exports = {
                         "style": { "guide-label": { "fill": "#fff" }, "guide-title": { "fill": "#fff" } },
                         "axis": { "domainColor": "#fff", "gridColor": "#888", "tickColor": "#fff" }
                     };
-                    var flag = `:flag_${total.countryInfo.iso2.toLowerCase()}:`;
+                    var flag;
+                    try {
+                        flag = `:flag_${total.countryInfo.iso2.toLowerCase()}:`;
+                    } catch (error) {
+                        flag = ":world_map:";
+                    }
 
-                    if (flag==undefined) flag = ":world_map:";
                     var view = new vega
                         .View(vega.parse(lineGraph, config))
                         .renderer('none')
