@@ -1,4 +1,4 @@
-var xp = require("../levels/")
+var xp = require("../serverData")
 module.exports = {
     name: 'get leaderboard',
     description: 'Get the leaderboard of the current guild',

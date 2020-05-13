@@ -5,7 +5,7 @@ const bot = new Client();
 var actionlog;
 bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
-const xp = require('./levels');
+const xp = require('./serverData');
 const embed = require('./static/embeds');
 
 Object.keys(botCommands).map(key => {
