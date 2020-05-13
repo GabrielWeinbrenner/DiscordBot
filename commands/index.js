@@ -6,5 +6,6 @@ module.exports = {
     Play: require('./play'),
     Help: require('./help'),
     Leaderboard: require('./leaderboard'),
-    Twitch: require('./twitch')
+    Twitch: require('./twitch'),
+    Actionlog: require('./actionlog')
 };
