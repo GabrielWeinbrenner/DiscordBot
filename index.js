@@ -84,6 +84,7 @@ function getActionLog(guild){
   return actionlog;
 }
 bot.on('guildMemberAdd', member => {
+  console.log("Member Joined");
   var actionlog = getActionLog(member.guild);
   if (actionlog) {
     let text = '**' + member.user + "** has joined";
@@ -91,6 +92,7 @@ bot.on('guildMemberAdd', member => {
   }
 })
 bot.on('guildMemberRemove', member => {
+  console.log("Member Left");
   var actionlog = getActionLog(member.guild);
   if (actionlog) {
   let text = '**' + member.user + '**, has left the server';
@@ -98,6 +100,8 @@ bot.on('guildMemberRemove', member => {
   }
 });
 bot.on('guildBanAdd', member => {
+  console.log("Member Banned");
+
   var actionlog = getActionLog(member.guild);
   if (actionlog) {
   let text = '**' + member.user + '**, has been banned';
@@ -105,6 +109,8 @@ bot.on('guildBanAdd', member => {
   }
 });
 bot.on('guildBanRemove', member => {
+  console.log("Member Unbanned");
+
   var actionlog = getActionLog(member.guild);
   if (actionlog) {
   let text = '**' + member.user + '**, has been unbanned';
@@ -112,6 +118,8 @@ bot.on('guildBanRemove', member => {
   }
 });
 bot.on('roleCreate', role => {
+  console.log("Role Created");
+
   var actionlog = getActionLog(role.guild);
   if (actionlog) {
   let text = '**' + role.name + '**, has been created';
@@ -119,6 +127,8 @@ bot.on('roleCreate', role => {
   }
 });
 bot.on('roleDelete', role => {
+  console.log("Role Deleted");
+
   var actionlog = getActionLog(role.guild);
   if (actionlog) {
   let text = '**' + role.name + '**, has been deleted';
@@ -131,6 +141,8 @@ bot.on('roleDelete', role => {
 //   let text = '**' + oldRole.name + '**, has been updated';
 // });
 bot.on('messageDelete', message => {
+  console.log("Message Deleted");
+
   var actionlog = getActionLog(message.guild);
   if (actionlog) {
     let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
@@ -141,7 +153,7 @@ bot.on('messageDelete', message => {
 //   console.log(oldMessage);
 //   console.log("------------------");
 //   console.log(newMessage);
-//   var actionlog = getActionLog(message.guild);
+//   var actionlog = getActionLog(oldMessage.guild);
 //   if (actionlog) {
 //     let text = `**${oldMessage.author}'s messsage has been editted from ${oldMessage.content}**`;
 //     actionlog.send({ embed: embed.sendEmbed(8388624, text, newMessage.content, oldMessage.author.username, oldMessage.author.displayAvatarURL()) })
@@ -149,6 +161,8 @@ bot.on('messageDelete', message => {
 // })
 
 bot.on('guildMemberUpdate', (oldMember, newMember) => {
+  console.log("Nickname added");
+
   var actionlog = getActionLog(oldMember.guild);
   if (actionlog) {
     if (!(oldMember.nickname == newMember.nickname)) {
@@ -158,6 +172,8 @@ bot.on('guildMemberUpdate', (oldMember, newMember) => {
 })
 
 bot.on('channelCreate', (channel) => {
+  console.log("Channel Created");
+
   var actionlog = getActionLog(channel.guild);
   if (actionlog) {
     if(channel.type !== "dm"){
@@ -168,6 +184,8 @@ bot.on('channelCreate', (channel) => {
   }
 })
 bot.on('channelDelete', (channel) => {
+  console.log("Channel Deleted");
+
   var actionlog = getActionLog(channel.guild);
   if(actionlog){
     let text = `**${channel} has been deleted**`;
