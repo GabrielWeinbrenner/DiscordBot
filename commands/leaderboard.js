@@ -4,7 +4,6 @@ module.exports = {
     description: 'Get the leaderboard of the current guild',
     execute(msg, args) {
         var topXp = xp.getTopXP(msg.guild.id);
-        console.log(topXp);
         const leaderboard = {
             title: `${msg.guild.name} leaderboard`,
             color: 13547268,
@@ -23,7 +22,9 @@ module.exports = {
                 },
             ],
             timestamp: new Date(),
-        }
+        }    
+    
+        
         msg.channel.send({embed: leaderboard})
     },
 };

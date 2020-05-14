@@ -48,6 +48,9 @@ bot.on('message', msg => {
     if (command.split(" ")[0] == "twitch") {
       bot.commands.get("twitch").execute(msg, args);
     }
+    if (command.split(" ")[0] == "actionlog") {
+      bot.commands.get("actionlog").execute(msg, args);
+    }
     if (!bot.commands.has(command)) return;
     try {
       bot.commands.get(command).execute(msg, args);

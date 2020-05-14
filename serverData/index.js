@@ -1,7 +1,8 @@
 const fs = require('fs');
-const data = fs.readFileSync(__dirname + '/server.json', 'utf8');
 module.exports = {
     addXP: (memberId, guildId) => {
+        const data = fs.readFileSync(__dirname + '/server.json', 'utf8');
+
         var serverData = JSON.parse(data);
         if(serverData.guilds[guildId] == undefined){
             serverData.guilds[guildId] = {};
@@ -13,7 +14,7 @@ module.exports = {
 
         serverData.guilds[guildId][memberId].xp = serverData.guilds[guildId][memberId].xp+1;
 
-        var writtenData = serverData;
+        var writtenData = JSON.stringify(serverData);
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
         if(serverData.guilds[guildId][memberId].xp % 100 === 0){
             return serverData.guilds[guildId][memberId].xp /100
@@ -21,6 +22,8 @@ module.exports = {
         return null;
     },
     getTopXP: (currentGuild) => {
+        const data = fs.readFileSync(__dirname + '/server.json', 'utf8');
+
         var serverData = JSON.parse(data);
         var topPeople = [];
         for (x in serverData.guilds[currentGuild]){
@@ -30,9 +33,16 @@ module.exports = {
             return b[1] - a[1];
         })
         topPeople.slice(0, 3)
+        if(topPeople.length < 3){
+            for(var i = 0; i <= 3 - topPeople.length; i++){
+                topPeople.push(["none",0])
+            }
+        }
         return topPeople;
     },
     getActionLog: (guildId) => {
+        const data = fs.readFileSync(__dirname + '/server.json', 'utf8');
+
         var serverData = JSON.parse(data);
         try{
             var channelId = serverData.guilds[guildId].actionLogId;
@@ -44,6 +54,8 @@ module.exports = {
 
     },
     setActionLog: (guildId, actionLogId) => {
+        const data = fs.readFileSync(__dirname + '/server.json', 'utf8');
+
         var serverData = JSON.parse(data);
         if (serverData.guilds[guildId] == undefined) {
             serverData.guilds[guildId] = {};
@@ -51,7 +63,7 @@ module.exports = {
         if (serverData.guilds[guildId].actionLogId == undefined) {
             serverData.guilds[guildId].actionLogId = actionLogId;
         }
-        var writtenData = serverData;
+        var writtenData = JSON.stringify(serverData);
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
         return null;
     }
