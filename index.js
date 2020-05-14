@@ -6,6 +6,8 @@ bot.commands = new Discord.Collection();
 const botCommands = require('./commands');
 const server = require('./serverData');
 const embed = require('./static/embeds');
+const db = require('quick.db');
+
 
 Object.keys(botCommands).map(key => {
   bot.commands.set(botCommands[key].name, botCommands[key]);
