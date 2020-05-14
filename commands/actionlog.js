@@ -23,8 +23,8 @@ module.exports = {
             )
                 .then(channel => serverData.setActionLog(guildId, channel.id));
 
-        }else if(args[args.length -2] == "get"){
-            msg.channel.send(serverData.getActionLog(guildId));
+        }else if(args[args.length -1] == "get"){
+            msg.channel.send(`Actionlog Channel: <#${serverData.getActionLog(guildId)}>`);
         }
     },
 };
