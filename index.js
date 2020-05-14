@@ -137,16 +137,16 @@ bot.on('messageDelete', message => {
     actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
   }
 })
-bot.on('messageUpdate', (oldMessage, newMessage) => {
-  console.log(oldMessage);
-  console.log("------------------");
-  console.log(newMessage);
-  var actionlog = getActionLog(message.guild);
-  if (actionlog) {
-    let text = `**${oldMessage.author}'s messsage has been editted from ${oldMessage.content}**`;
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, newMessage.content, oldMessage.author.username, oldMessage.author.displayAvatarURL()) })
-  }
-})
+// bot.on('messageUpdate', (oldMessage, newMessage) => {
+//   console.log(oldMessage);
+//   console.log("------------------");
+//   console.log(newMessage);
+//   var actionlog = getActionLog(message.guild);
+//   if (actionlog) {
+//     let text = `**${oldMessage.author}'s messsage has been editted from ${oldMessage.content}**`;
+//     actionlog.send({ embed: embed.sendEmbed(8388624, text, newMessage.content, oldMessage.author.username, oldMessage.author.displayAvatarURL()) })
+//   }
+// })
 
 bot.on('guildMemberUpdate', (oldMember, newMember) => {
   var actionlog = getActionLog(oldMember.guild);
