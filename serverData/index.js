@@ -25,6 +25,12 @@ module.exports = {
         }
         return topPeople;
     },
+    clearLeaderBoard: (guildId) =>{
+        var currentActionLog = db.get(`guilds.${guildId}.actionlog`);
+        db.set(`guilds.${guildId}`, "");
+        db.set(`guilds.${guildId}.actionlog`, currentActionLog);
+        return null;
+    },
     getActionLog: (guildId) => {
         try{
             var channelId = db.get("guilds." + guildId + ".actionlog");
