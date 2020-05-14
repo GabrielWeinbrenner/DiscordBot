@@ -63,6 +63,7 @@ module.exports = {
         if (serverData.guilds[guildId].actionLogId == undefined) {
             serverData.guilds[guildId].actionLogId = actionLogId;
         }
+        serverData.guilds[guildId].actionLogId = actionLogId;
         var writtenData = JSON.stringify(serverData);
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
         return null;

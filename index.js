@@ -78,107 +78,107 @@ nickname change
 // RED = 8388624
 // PURPLE = 6164643
 /* --------- */
-  bot.on('guildMemberAdd', member => {
-    var guild = member.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + member.user + "** has joined";
-    actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL() )})
-    }
-  })
-  bot.on('guildMemberRemove', member => {
-    var guild = member.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + member.user + '**, has left the server';
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
-    }
-  });
-  bot.on('guildBanAdd', member => {
-    var guild = member.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + member.user + '**, has been banned';
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
-    }
-  });
-  bot.on('guildBanRemove', member => {
-    var guild = member.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + member.user + '**, has been unbanned';
-    actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL()) })
-    }
-  });
-  bot.on('roleCreate', role => {
-    var guild = role.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + role.name + '**, has been created';
-    actionlog.send({ embed: embed.sendEmbed(4289797, text, "", role.guild.name, role.guild.iconURL()) })
-    }
-  });
-  bot.on('roleDelete', role => {
-    var guild = role.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-    let text = '**' + role.name + '**, has been deleted';
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, "", role.guild.name, role.guild.iconURL()) })
-    }
-  });
-  // bot.on('roleUpdate', (oldRole, newRole) => {
-  //   console.log(oldRole);
-  //   console.log(newRole);
-  //   let text = '**' + oldRole.name + '**, has been updated';
-  // });
-  bot.on('messageDelete', message => {
-    var guild = message.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-      let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
-      actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
-    }
-  })
-  // bot.on('messageUpdate', (oldMessage, newMessage) => {
-  //   if (oldMessage.content == "``````") {return;}
-  //   actionlog.send(`**${oldMessage.author}'s** messsage of \`\`\`${oldMessage.content}\`\`\` has been editted to ${newMessage.content}`)
-  // })
+bot.on('guildMemberAdd', member => {
+  var guild = member.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + member.user + "** has joined";
+  actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL() )})
+  }
+})
+bot.on('guildMemberRemove', member => {
+  var guild = member.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + member.user + '**, has left the server';
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
+  }
+});
+bot.on('guildBanAdd', member => {
+  var guild = member.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + member.user + '**, has been banned';
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
+  }
+});
+bot.on('guildBanRemove', member => {
+  var guild = member.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + member.user + '**, has been unbanned';
+  actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL()) })
+  }
+});
+bot.on('roleCreate', role => {
+  var guild = role.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + role.name + '**, has been created';
+  actionlog.send({ embed: embed.sendEmbed(4289797, text, "", role.guild.name, role.guild.iconURL()) })
+  }
+});
+bot.on('roleDelete', role => {
+  var guild = role.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+  let text = '**' + role.name + '**, has been deleted';
+  actionlog.send({ embed: embed.sendEmbed(8388624, text, "", role.guild.name, role.guild.iconURL()) })
+  }
+});
+// bot.on('roleUpdate', (oldRole, newRole) => {
+//   console.log(oldRole);
+//   console.log(newRole);
+//   let text = '**' + oldRole.name + '**, has been updated';
+// });
+bot.on('messageDelete', message => {
+  var guild = message.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+    let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
+    actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
+  }
+})
+// bot.on('messageUpdate', (oldMessage, newMessage) => {
+//   if (oldMessage.content == "``````") {return;}
+//   actionlog.send(`**${oldMessage.author}'s** messsage of \`\`\`${oldMessage.content}\`\`\` has been editted to ${newMessage.content}`)
+// })
 
-  bot.on('guildMemberUpdate', (oldMember, newMember) => {
-    var guild = oldMember.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-      if (!(oldMember.nickname == newMember.nickname)) {
-        let text = `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}`;
-      }
+bot.on('guildMemberUpdate', (oldMember, newMember) => {
+  var guild = oldMember.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+    if (!(oldMember.nickname == newMember.nickname)) {
+      let text = `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}`;
     }
-  })
+  }
+})
 
-  bot.on('channelCreate', (channel) => {
-    var guild = channel.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if (actionlog) {
-      if(channel.type !== "dm"){
-        actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
-      }
+bot.on('channelCreate', (channel) => {
+  var guild = channel.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if (actionlog) {
+    if(channel.type !== "dm"){
+      actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
     }
-  })
-  bot.on('channelDelete', (channel) => {
-    var guild = channel.guild;
-    var actionlogid = server.getActionLog(guild.id);
-    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
-    if(actionlog){
-      let text = `**${channel} has been deleted**`;
-      actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.iconURL()) })
-    }
-  })
+  }
+})
+bot.on('channelDelete', (channel) => {
+  var guild = channel.guild;
+  var actionlogid = server.getActionLog(guild.id);
+  var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+  if(actionlog){
+    let text = `**${channel} has been deleted**`;
+    actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.iconURL()) })
+  }
+})
 /* --------- */
