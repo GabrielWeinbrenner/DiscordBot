@@ -15,8 +15,8 @@ module.exports = {
 
         var writtenData = JSON.stringify(serverData);
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
-        if(levels.guilds[guildId][memberId].xp % 100 === 0){
-            return levels.guilds[guildId][memberId].xp /100
+        if(serverData.guilds[guildId][memberId].xp % 100 === 0){
+            return serverData.guilds[guildId][memberId].xp /100
         }
         return null;
     },
@@ -33,11 +33,15 @@ module.exports = {
         return topPeople;
     },
     getActionLog: (guildId) => {
-        var channelId = serverData.guilds[guildId].actionLogId;
-        if (channelId == undefined){
-            return null
+        var serverData = JSON.parse(data);
+        try{
+            var channelId = serverData.guilds[guildId].actionLogId;
+            return channelId;
+        }catch(e){
+            return null;
+
         }
-        return channelId;
+
     },
     setActionLog: (guildId, actionLogId) => {
         var serverData = JSON.parse(data);
