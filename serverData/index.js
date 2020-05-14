@@ -13,7 +13,7 @@ module.exports = {
 
         serverData.guilds[guildId][memberId].xp = serverData.guilds[guildId][memberId].xp+1;
 
-        var writtenData = JSON.stringify(serverData);
+        var writtenData = serverData;
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
         if(serverData.guilds[guildId][memberId].xp % 100 === 0){
             return serverData.guilds[guildId][memberId].xp /100
@@ -51,7 +51,7 @@ module.exports = {
         if (serverData.guilds[guildId].actionLogId == undefined) {
             serverData.guilds[guildId].actionLogId = actionLogId;
         }
-        var writtenData = JSON.stringify(serverData);
+        var writtenData = serverData;
         fs.writeFileSync(__dirname + '/server.json', writtenData, 'utf8', (err) => console.log("good"));
         return null;
     }

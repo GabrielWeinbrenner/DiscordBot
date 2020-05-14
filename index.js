@@ -75,47 +75,59 @@ nickname change
 // RED = 8388624
 // PURPLE = 6164643
 /* --------- */
-try{
   bot.on('guildMemberAdd', member => {
-    var actionlog = server.getActionLog(member.guild.id);
+    var guild = member.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + member.user + "** has joined";
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL() )})
-    member.addRole()
+    }
   })
   bot.on('guildMemberRemove', member => {
-    var actionlog = server.getActionLog(member.guild.id);
-
+    var guild = member.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + member.user + '**, has left the server';
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
-
+    }
   });
   bot.on('guildBanAdd', member => {
-    var actionlog = server.getActionLog(member.guild.id);
-
+    var guild = member.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + member.user + '**, has been banned';
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", member.user.username, member.user.displayAvatarURL()) })
-
+    }
   });
   bot.on('guildBanRemove', member => {
-    var actionlog = server.getActionLog(member.guild.id);
-
+    var guild = member.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + member.user + '**, has been unbanned';
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", member.user.username, member.user.displayAvatarURL()) })
-
+    }
   });
   bot.on('roleCreate', role => {
-    var actionlog = server.getActionLog(role.guild.id);
-
+    var guild = role.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + role.name + '**, has been created';
     actionlog.send({ embed: embed.sendEmbed(4289797, text, "", role.guild.name, role.guild.iconURL()) })
-
+    }
   });
   bot.on('roleDelete', role => {
-    var actionlog = server.getActionLog(role.guild.id);
-
+    var guild = role.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
     let text = '**' + role.name + '**, has been deleted';
     actionlog.send({ embed: embed.sendEmbed(8388624, text, "", role.guild.name, role.guild.iconURL()) })
-
+    }
   });
   // bot.on('roleUpdate', (oldRole, newRole) => {
   //   console.log(oldRole);
@@ -123,10 +135,13 @@ try{
   //   let text = '**' + oldRole.name + '**, has been updated';
   // });
   bot.on('messageDelete', message => {
-    var actionlog = server.getActionLog(message.guild.id);
-
-    let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
+    var guild = message.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
+      let text = `**${message.author}'s messsage has been deleted in ${message.channel}**`;
+      actionlog.send({ embed: embed.sendEmbed(8388624, text, message.content, message.author.username, message.author.displayAvatarURL()) })
+    }
   })
   // bot.on('messageUpdate', (oldMessage, newMessage) => {
   //   if (oldMessage.content == "``````") {return;}
@@ -134,32 +149,33 @@ try{
   // })
 
   bot.on('guildMemberUpdate', (oldMember, newMember) => {
-    var actionlog = server.getActionLog(oldMember.guild.id);
-
-    if (!(oldMember.nickname == newMember.nickname)) {
-      let text = `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}`;
-      actionlog.send({ embed: embed.sendEmbed(6164643, text, "", oldMember.user.username, oldMember.user.displayAvatarURL()) })
+    var guild = oldMember.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
+      if (!(oldMember.nickname == newMember.nickname)) {
+        let text = `**${oldMember.displayName}'s** nickname has been changed to ${newMember.nickname}`;
+      }
     }
   })
 
   bot.on('channelCreate', (channel) => {
-    var actionlog = server.getActionLog(channel.guild.id);
-
-    if(actionlog != undefined){
+    var guild = channel.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if (actionlog) {
       if(channel.type !== "dm"){
-        let text = `**${channel} has been created}**`;
         actionlog.send({ embed: embed.sendEmbed(4289797, text, "", channel.guild.name, channel.guild.iconURL()) })
       }
     }
   })
   bot.on('channelDelete', (channel) => {
-    var actionlog = server.getActionLog(channel.guild.id);
-    console.log(actionlog);
-    let text = `**${channel} has been deleted**`;
-    actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.iconURL()) })
-
+    var guild = channel.guild;
+    var actionlogid = server.getActionLog(guild.id);
+    var actionlog = guild.channels.cache.find(channel => channel.id == actionlogid);
+    if(actionlog){
+      let text = `**${channel} has been deleted**`;
+      actionlog.send({ embed: embed.sendEmbed(8388624, text, "", channel.guild.name, channel.guild.iconURL()) })
+    }
   })
-}catch(e){
-  console.log(e);
-}
 /* --------- */
