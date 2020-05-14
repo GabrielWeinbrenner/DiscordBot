@@ -14,6 +14,7 @@ module.exports = {
         for (x in db.get(`guilds.${currentGuild}`)){
             topPeople.push([x, db.get(`guilds.${currentGuild}.${x}.xp`)]);
         }
+        topPeople = topPeople.filter((person) => person[0] != "actionlog");
         topPeople.sort(function(a,b){
             return b[1] - a[1];
         })
