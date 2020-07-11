@@ -1,4 +1,3 @@
-const fs = require('fs');
 var db = require('quick.db')
 
 module.exports = {
