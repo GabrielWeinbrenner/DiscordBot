@@ -16,7 +16,7 @@ A personalized discord bot that includes Covid-19 graphs, leaderboard systems, a
 + kimmary get daily {country}
 <p>Returns the covid count of the country</p>
 
-<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/BigONotation/images/covid19graphs.png">
+<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/images/covid19graphs.png">
 
 # Leaderboard 
 <p>Display of people with the most chat xp</p>
@@ -30,8 +30,8 @@ The bot automatically adds xp to the database of the current
 discord server.
 </p>
 
-<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/BigONotation/images/leaderboard.png">
-<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/BigONotation/images/levelup.png">
+<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/images/leaderboard.png">
+<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/images/levelup.png">
 
 
 # Actionlog 
@@ -40,4 +40,4 @@ discord server.
 + kimmary create {channel of actionlog}
 <p>Creates an actionlog channel to log people's actions</p>
 
-<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/BigONotation/images/actionlog.png">
+<img src="https://github.com/GabrielWeinbrenner/KimmaryBot/blob/master/images/actionlog.png">
